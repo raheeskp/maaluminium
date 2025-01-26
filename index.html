@@ -87,7 +87,7 @@
     <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0">
         <a href="index.html" class="navbar-brand d-flex align-items-center px-3 px-lg-5">
             <img src="img/logo.png" alt="" style="height: 50px;width: 50px;" class="me-1">
-            <h2 class="m-0 text-primary">M A ALUMINIUM</h2>
+            <h2 class="m-0 text-primary flex align-text-top"><span style="font-size: 50px;">MA</span> ALUMINIUM</h2>
         </a>
         <button type="button" class="navbar-toggler me-3" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
@@ -99,9 +99,9 @@
                 <a href="service.html" class="nav-item nav-link">Materials</a>
                 <!-- <a href="project.html" class="nav-item nav-link">Project</a> -->
                 <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">GO TO</a>
                     <div class="dropdown-menu fade-up m-0">
-                        <a href="feature.html" class="dropdown-item">Feature</a>
+                        <a href="feature.html" class="dropdown-item">Features</a>
                         <a href="quote.html" class="dropdown-item">Free Quote</a>
                         <a href="team.html" class="dropdown-item">Our Team</a>
                         <a href="testimonial.html" class="dropdown-item">Testimonial</a>
@@ -109,7 +109,7 @@
                 </div>
                 <a href="contact.html" class="nav-item nav-link">Contact</a>
             </div>
-            <a href="" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Get A Quote<i
+            <a href="quote.html" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Get A Quote<i
                     class="fa fa-arrow-right ms-3"></i></a>
         </div>
     </nav>
@@ -595,19 +595,19 @@
                         <form>
                             <div class="row g-3">
                                 <div class="col-12 col-sm-6">
-                                    <input type="text" class="form-control border-1" placeholder="Your Name"
+                                    <input type="text" class="form-control border-1" placeholder="Your Name" name="Name"
                                         style="height: 55px;">
                                 </div>
                                 <div class="col-12 col-sm-6">
                                     <input type="email" class="form-control border-1" placeholder="Your Email"
-                                        style="height: 55px;">
+                                        name="Email" style="height: 55px;">
                                 </div>
                                 <div class="col-12 col-sm-6">
                                     <input type="text" class="form-control border-1" placeholder="Your Mobile"
-                                        style="height: 55px;">
+                                        name="Mobile" style="height: 55px;">
                                 </div>
                                 <div class="col-12 col-sm-6">
-                                    <select class="form-select border-1" style="height: 55px;">
+                                    <select class="form-select border-1" style="height: 55px;" name="Service">
                                         <option selected>Select A Service</option>
                                         <option value="Enquiry">Enquiry</option>
                                         <option value="Complaints">Complaints</option>
@@ -615,7 +615,8 @@
                                     </select>
                                 </div>
                                 <div class="col-12">
-                                    <textarea class="form-control border-1" placeholder="Special Note"></textarea>
+                                    <textarea class="form-control border-1" placeholder="Special Note"
+                                        name="Message"></textarea>
                                 </div>
                                 <div class="col-12">
                                     <button class="btn btn-primary w-100 py-3" type="submit">Submit</button>
