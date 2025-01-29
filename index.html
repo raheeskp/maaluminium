@@ -898,11 +898,12 @@
             fetch(scriptURL, { method: "POST", body: requestBody })
                 .then((response) => {
                     alert("Your Message has been submitted success fully!, Thank you!");
-                    document.querySelector("#form").reset()
+                    console.log(response);
                     submitButton.disabled = false;
                 })
                 .catch((error) => {
                     alert("Some thing went wrong, Please try again!");
+                    console.log(error);
                     submitButton.disabled = false;
                 });
         });

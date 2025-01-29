@@ -144,39 +144,37 @@
                         </div>
                         <p class="mb-4">Send us in few words, your wants and needs we can reach you within minutes
                             and also we can suggest & assist you early as possible.</p>
-                        <form id="form">
+                        <form>
                             <div class="row g-3">
                                 <div class="col-md-6">
                                     <div class="form-floating">
                                         <input type="text" class="form-control" id="name" placeholder="Your Name"
-                                            name="Name" required>
+                                            required>
                                         <label for="name">Your Name</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-floating">
-                                        <input type="text" class="form-control" id="email" placeholder="Your Email"
-                                            name="Mobile">
-                                        <label for="email">Your mobile No</label>
+                                        <input type="email" class="form-control" id="email" placeholder="Your Email">
+                                        <label for="email">Your Email</label>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-floating">
                                         <input type="text" class="form-control" id="subject" placeholder="Subject"
-                                            name="Service" required>
+                                            required>
                                         <label for="subject">Subject</label>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-floating">
                                         <textarea class="form-control" placeholder="Leave a message here" id="message"
-                                            name="Message" style="height: 100px"></textarea>
+                                            style="height: 100px"></textarea>
                                         <label for="message">Message</label>
                                     </div>
                                 </div>
                                 <div class="col-12">
-                                    <button id="submit" class="btn btn-primary w-100 py-3" type="submit">Send
-                                        Message</button>
+                                    <button class="btn btn-primary w-100 py-3" type="submit">Send Message</button>
                                 </div>
                             </div>
                         </form>
@@ -273,28 +271,6 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
-    <script>
-        const form = document.querySelector("#form");
-        const submitButton = document.querySelector("#submit");
-        const scriptURL =
-            "https://script.google.com/macros/s/AKfycbyPIrLIu8aITFXTL6s1hzMaVlUZKRancBR9_RRKznPLz9X4ydlghld3AMc41GHBnWPI/exec";
-
-        form.addEventListener("submit", (e) => {
-            submitButton.disabled = true;
-            e.preventDefault();
-            let requestBody = new FormData(form);
-            fetch(scriptURL, { method: "POST", body: requestBody })
-                .then((response) => {
-                    alert("Your Message has been submitted success fully!, Thank you!");
-                    document.querySelector("#form").reset()
-                    submitButton.disabled = false;
-                })
-                .catch((error) => {
-                    alert("Some thing went wrong, Please try again!");
-                    submitButton.disabled = false;
-                });
-        });
-    </script>
 </body>
 
 </html>
