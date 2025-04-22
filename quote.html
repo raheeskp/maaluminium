@@ -41,6 +41,25 @@
   </head>
 
   <body>
+    <style>
+      #loader-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.9);
+        z-index: 9999;
+        display: none;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .loader-spinner {
+        width: 3rem;
+        height: 3rem;
+      }
+    </style>
     <!-- Spinner Start -->
     <div
       id="spinner"
@@ -86,7 +105,7 @@
               <i class="fab fa-linkedin-in"></i>
             </a> -->
             <a
-              class="btn btn-sm-square bg-white text-primary me-0"
+              class="btn btn-sm-square bg-white text-primary me-1"
               href="https://www.facebook.com/maaluminium.info"
             >
               <i class="fab fa-instagram"></i>
@@ -371,7 +390,14 @@
       </div>
     </div>
     <!-- Footer End -->
-
+    <div id="loader-overlay">
+      <div class="text-center">
+        <div class="spinner-border loader-spinner text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <p class="mt-2">Loading, please wait...</p>
+      </div>
+    </div>
     <!-- Back to Top -->
     <a
       href="#"
@@ -393,25 +419,30 @@
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
     <script>
-      const form = document.querySelector("#form");
-      const submitButton = document.querySelector("#submit");
-      const scriptURL =
-        "https://script.google.com/macros/s/AKfycbyPIrLIu8aITFXTL6s1hzMaVlUZKRancBR9_RRKznPLz9X4ydlghld3AMc41GHBnWPI/exec";
-
-      form.addEventListener("submit", (e) => {
-        submitButton.disabled = true;
-        e.preventDefault();
-        let requestBody = new FormData(form);
-        fetch(scriptURL, { method: "POST", body: requestBody })
-          .then((response) => {
-            alert("Your Message has been submitted Succcessfully, Thank you!");
-            document.querySelector("#form").reset();
-            submitButton.disabled = false;
-          })
-          .catch((error) => {
-            alert("Some thing went wrong, Please try again!");
-            submitButton.disabled = false;
-          });
+      document.getElementById("submit").addEventListener("click", function () {
+        // Show loader
+        document.getElementById("loader-overlay").style.display = "flex";
+        const form = document.querySelector("#form");
+        const submitButton = document.querySelector("#submit");
+        const scriptURL =
+          "https://script.google.com/macros/s/AKfycbymjNohjQ4w9HvWNhk1Fd4QrjADOP7FMSOXo_fHVe5tXGxUaaYcsiG6GED2jqzHrkgZ/exec";
+        form.addEventListener("submit", (e) => {
+          submitButton.disabled = true;
+          e.preventDefault();
+          let requestBody = new FormData(form);
+          fetch(scriptURL, { method: "POST", body: requestBody })
+            .then((response) => {
+              alert("Your Message hasbeen submitted successfully!, Thank you!");
+              document.querySelector("#form").reset();
+              submitButton.disabled = false;
+              document.getElementById("loader-overlay").style.display = "none";
+            })
+            .catch((error) => {
+              alert("Some thing went wrong, Please try again!");
+              submitButton.disabled = false;
+              document.getElementById("loader-overlay").style.display = "none";
+            });
+        });
       });
     </script>
   </body>
