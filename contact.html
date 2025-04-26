@@ -426,17 +426,17 @@
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
     <script>
+      const form = document.querySelector("#form");
+      const submitButton = document.querySelector("#submit");
+      const requestBody = new FormData(form);
+      const scriptURL =
+        "https://script.google.com/macros/s/AKfycbymjNohjQ4w9HvWNhk1Fd4QrjADOP7FMSOXo_fHVe5tXGxUaaYcsiG6GED2jqzHrkgZ/exec";
+
       document.getElementById("submit").addEventListener("click", function () {
-        // Show loader
-        document.getElementById("loader-overlay").style.display = "flex";
-        const form = document.querySelector("#form");
-        const submitButton = document.querySelector("#submit");
-        const scriptURL =
-          "https://script.google.com/macros/s/AKfycbymjNohjQ4w9HvWNhk1Fd4QrjADOP7FMSOXo_fHVe5tXGxUaaYcsiG6GED2jqzHrkgZ/exec";
         form.addEventListener("submit", (e) => {
           submitButton.disabled = true;
           e.preventDefault();
-          let requestBody = new FormData(form);
+          document.getElementById("loader-overlay").style.display = "flex";
           fetch(scriptURL, { method: "POST", body: requestBody })
             .then((response) => {
               alert("Your Message hasbeen submitted successfully!, Thank you!");
