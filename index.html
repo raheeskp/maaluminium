@@ -220,6 +220,7 @@
               <a href="quote.html" class="dropdown-item">Free Quote</a>
               <a href="team.html" class="dropdown-item">Our Team</a>
               <a href="testimonial.html" class="dropdown-item">Testimonial</a>
+              <a href="career.html" class="dropdown-item">Career</a>
             </div>
           </div>
           <a href="contact.html" class="nav-item nav-link">Contact</a>
@@ -1184,9 +1185,12 @@
             <a class="btn btn-link" href="contact.html">Support</a>
           </div>
           <div class="col-lg-3 col-md-6">
-            <h4 class="text-light mb-4">Newsletter</h4>
-            <p>Pls submit your email id so you can get latest updates</p>
-            <div class="position-relative mx-auto" style="max-width: 400px">
+            <h4 class="text-light mb-4">Get hired</h4>
+            <p>
+              Are you interested to be a part of MA Aluminium?, Please submit
+              your credentials
+            </p>
+            <!-- <div class="position-relative mx-auto" style="max-width: 400px">
               <input
                 class="form-control border-0 w-100 py-3 ps-4 pe-5"
                 type="text"
@@ -1198,6 +1202,17 @@
               >
                 Send
               </button>
+            </div> -->
+            <div class="col-12">
+              <a href="career.html">
+                <button
+                  id="submit"
+                  class="btn btn-primary w-100 py-2"
+                  type="submit"
+                >
+                  Apply now
+                </button>
+              </a>
             </div>
           </div>
         </div>
@@ -1285,7 +1300,7 @@
       const submitButton = document.querySelector("#submit");
       const requestBody = new FormData(form);
       const scriptURL =
-        "https://script.google.com/macros/s/AKfycbymjNohjQ4w9HvWNhk1Fd4QrjADOP7FMSOXo_fHVe5tXGxUaaYcsiG6GED2jqzHrkgZ/exec";
+        "https://script.google.com/macros/s/AKfycbxq2cdQf21P3GvBlKYDRsNOk7IPkUdf41isb-iX-rYKiSqr0whWY0u9HqCIoeMZ0rl4/exec";
 
       document.getElementById("submit").addEventListener("click", function () {
         form.addEventListener("submit", (e) => {

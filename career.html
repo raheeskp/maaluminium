@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>MA Aluminium - Features</title>
+    <title>MA Aluminium - Career</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <meta content="" name="keywords" />
     <meta content="" name="description" />
@@ -41,6 +41,25 @@
   </head>
 
   <body>
+    <style>
+      #loader-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.9);
+        z-index: 9999;
+        display: none;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .loader-spinner {
+        width: 3rem;
+        height: 3rem;
+      }
+    </style>
     <!-- Spinner Start -->
     <div
       id="spinner"
@@ -139,11 +158,11 @@
               >GO-TO</a
             >
             <div class="dropdown-menu fade-up m-0">
-              <a href="feature.html" class="dropdown-item active">Feature</a>
+              <a href="feature.html" class="dropdown-item">Feature</a>
               <a href="quote.html" class="dropdown-item">Free Quote</a>
               <a href="team.html" class="dropdown-item">Our Team</a>
               <a href="testimonial.html" class="dropdown-item">Testimonial</a>
-              <a href="career.html" class="dropdown-item">Career</a>
+              <a href="career.html" class="dropdown-item active">Career</a>
             </div>
           </div>
           <a href="contact.html" class="nav-item nav-link">Contact</a>
@@ -160,17 +179,19 @@
     <!-- Page Header Start -->
     <div class="container-fluid page-header py-5 mb-5">
       <div class="container py-5">
-        <h1 class="display-3 text-white mb-3 animated slideInDown">Feature</h1>
+        <h1 class="display-3 text-white mb-3 animated slideInDown">
+          Apply Now
+        </h1>
         <nav aria-label="breadcrumb animated slideInDown">
           <ol class="breadcrumb">
             <li class="breadcrumb-item">
-              <a class="text-white" href="#">Home</a>
+              <a class="text-white" href="index.html">Home</a>
             </li>
             <li class="breadcrumb-item">
               <a class="text-white" href="#">Go-To</a>
             </li>
             <li class="breadcrumb-item text-white active" aria-current="page">
-              Feature
+              Career
             </li>
           </ol>
         </nav>
@@ -178,89 +199,191 @@
     </div>
     <!-- Page Header End -->
 
-    <!-- Feature Start -->
+    <!-- Quote Start -->
     <div class="container-fluid bg-light overflow-hidden my-5 px-lg-0">
-      <div class="container feature px-lg-0">
+      <div class="container quote px-lg-0">
         <div class="row g-0 mx-lg-0">
           <div
-            class="col-lg-6 feature-text py-5 wow fadeIn"
+            class="col-lg-6 quote-text py-5 wow fadeIn"
             data-wow-delay="0.5s"
           >
-            <div class="p-lg-5 ps-lg-0">
+            <div class="p-lg-5 pe-lg-0">
               <div class="section-title text-start">
-                <h1 class="display-5 mb-4">Why Choose Us</h1>
+                <h1 class="display-5 mb-4">Get Hired</h1>
               </div>
               <p class="mb-4 pb-2">
-                We have experience around 10 years in this field and also we
-                provide quality products and materials for our Clients and
-                customers and more over we ensuring the 100% customer
-                satisfaction
+                Send us your latest credentials by filling the following
+                application and get hired with best packages, we will contact
+                you later.
               </p>
-              <div class="row g-4">
-                <div class="col-6">
-                  <div class="d-flex align-items-center">
-                    <div
-                      class="d-flex flex-shrink-0 align-items-center justify-content-center bg-white"
-                      style="width: 60px; height: 60px"
+              <form id="form" method="post">
+                <div class="row g-3">
+                  <div class="col-12 col-sm-6">
+                    <input
+                      type="text"
+                      class="form-control border-1"
+                      placeholder="First Name"
+                      name="First Name"
+                      required
+                      style="height: 55px"
+                    />
+                  </div>
+                  <div class="col-12 col-sm-6">
+                    <input
+                      type="text"
+                      class="form-control border-1"
+                      placeholder="Last Name"
+                      name="Last Name"
+                      required
+                      style="height: 55px"
+                    />
+                  </div>
+                  <div class="col-12 col-sm-6">
+                    <input
+                      type="email"
+                      class="form-control border-1"
+                      placeholder="Email Id"
+                      name="Email"
+                      style="height: 55px"
+                    />
+                  </div>
+                  <div class="col-12 col-sm-6">
+                    <input
+                      type="text"
+                      class="form-control border-1"
+                      placeholder="Mobile No"
+                      name="Mobile"
+                      required
+                      style="height: 55px"
+                    />
+                  </div>
+                  <div class="col-12 col-sm-6">
+                    <input
+                      type="date"
+                      class="form-control border-1"
+                      placeholder="Date of birth"
+                      name="Date of birth"
+                      required
+                      style="height: 55px"
+                    />
+                  </div>
+                  <div class="col-12 col-sm-6">
+                    <input
+                      type="text"
+                      class="form-control border-1"
+                      placeholder="Place"
+                      name="Place"
+                      required
+                      style="height: 55px"
+                    />
+                  </div>
+                  <div class="col-12 col-sm-6">
+                    <select
+                      class="form-select border-1"
+                      style="height: 55px"
+                      name="District"
+                      required
+                      aria-placeholder="lxjgf"
                     >
-                      <i class="fa fa-check fa-2x text-primary"></i>
-                    </div>
-                    <div class="ms-4">
-                      <p class="mb-2">Quality</p>
-                      <h5 class="mb-0">Products</h5>
-                    </div>
+                      <option selected value="">Select District</option>
+                      <option value="Thiruvananthapuram">
+                        Thiruvananthapuram
+                      </option>
+                      <option value="Kollam">Kollam</option>
+                      <option value="Pathanamthitta">Pathanamthitta</option>
+                      <option value="Alappuzha">Alappuzha</option>
+                      <option value="Kottayam">Kottayam</option>
+                      <option value="Idukki">Idukki</option>
+                      <option value="Ernakulam">Ernakulam</option>
+                      <option value="Thrissur">Thrissur</option>
+                      <option value="Palakkad">Palakkad</option>
+                      <option value="Malappuram">Malappuram</option>
+                      <option value="Kozhikode">Kozhikode</option>
+                      <option value="Wayanad">Wayanad</option>
+                      <option value="Kannur">Kannur</option>
+                      <option value="Kasaragod">Kasaragod</option>
+                    </select>
+                  </div>
+                  <div class="col-12 col-sm-6">
+                    <input
+                      type="text"
+                      class="form-control border-1"
+                      placeholder="PIN Code"
+                      name="Pin Code"
+                      required
+                      style="height: 55px"
+                    />
+                  </div>
+                  <div class="col-12 col-sm-6">
+                    <input
+                      type="text"
+                      class="form-control border-1"
+                      placeholder="Kerala"
+                      name="Kerala"
+                      disabled
+                      style="height: 55px"
+                    />
+                  </div>
+
+                  <div class="col-12 col-sm-6">
+                    <input
+                      type="text"
+                      class="form-control border-1"
+                      placeholder="India"
+                      name="India"
+                      disabled
+                      style="height: 55px"
+                    />
+                  </div>
+                  <div class="col-12 col-sm-6">
+                    <select
+                      class="form-select border-1"
+                      style="height: 55px"
+                      name="Service"
+                      required
+                    >
+                      <option selected value="">Highest education</option>
+                      <option value="Enquiry">Master Degree</option>
+                      <option value="Complaints">Degree</option>
+                      <option value="Complaints">Diploma</option>
+                      <option value="Suggestions">Plus two</option>
+                      <option value="Suggestions">SSLC</option>
+                    </select>
+                  </div>
+                  <div class="col-12 col-sm-6">
+                    <input
+                      type="text"
+                      class="form-control border-1"
+                      placeholder="Course description"
+                      name="Course description"
+                      style="height: 55px"
+                    />
+                  </div>
+                  <div class="col-12">
+                    <textarea
+                      class="form-control border-1"
+                      placeholder="Dou you have any previous experience?. if Yes, please specify"
+                      name="Experience"
+                    ></textarea>
+                  </div>
+                  <div class="col-12">
+                    <button
+                      id="submit"
+                      class="btn btn-primary w-100 py-3"
+                      type="submit"
+                    >
+                      Submit
+                    </button>
                   </div>
                 </div>
-                <div class="col-6">
-                  <div class="d-flex align-items-center">
-                    <div
-                      class="d-flex flex-shrink-0 align-items-center justify-content-center bg-white"
-                      style="width: 60px; height: 60px"
-                    >
-                      <i class="fa fa-user-check fa-2x text-primary"></i>
-                    </div>
-                    <div class="ms-4">
-                      <p class="mb-2">Well trained</p>
-                      <h5 class="mb-0">Sataffs</h5>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-6">
-                  <div class="d-flex align-items-center">
-                    <div
-                      class="d-flex flex-shrink-0 align-items-center justify-content-center bg-white"
-                      style="width: 60px; height: 60px"
-                    >
-                      <i class="fa fa-drafting-compass fa-2x text-primary"></i>
-                    </div>
-                    <div class="ms-4">
-                      <p class="mb-2">Free</p>
-                      <h5 class="mb-0">Consultation</h5>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-6">
-                  <div class="d-flex align-items-center">
-                    <div
-                      class="d-flex flex-shrink-0 align-items-center justify-content-center bg-white"
-                      style="width: 60px; height: 60px"
-                    >
-                      <i class="fa fa-headphones fa-2x text-primary"></i>
-                    </div>
-                    <div class="ms-4">
-                      <p class="mb-2">Customer</p>
-                      <h5 class="mb-0">Support</h5>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              </form>
             </div>
           </div>
-          <div class="col-lg-6 pe-lg-0" style="min-height: 400px">
+          <div class="col-lg-6 ps-lg-0" style="min-height: 400px">
             <div class="position-relative h-100">
               <img
                 class="position-absolute img-fluid w-100 h-100"
-                src="img/feature.jpg"
+                src="img/career.jpg"
                 style="object-fit: cover"
                 alt=""
               />
@@ -269,7 +392,7 @@
         </div>
       </div>
     </div>
-    <!-- Feature End -->
+    <!-- Quote End -->
 
     <!-- Footer Start -->
     <div
@@ -331,12 +454,9 @@
             <a class="btn btn-link" href="contact.html">Support</a>
           </div>
           <div class="col-lg-3 col-md-6">
-            <h4 class="text-light mb-4">Get hired</h4>
-            <p>
-              Are you interested to be a part of MA Aluminium?, Please submit
-              your credentials
-            </p>
-            <!-- <div class="position-relative mx-auto" style="max-width: 400px">
+            <h4 class="text-light mb-4">Newsletter</h4>
+            <p>Pls submit your email id so you can get latest updates</p>
+            <div class="position-relative mx-auto" style="max-width: 400px">
               <input
                 class="form-control border-0 w-100 py-3 ps-4 pe-5"
                 type="text"
@@ -348,17 +468,6 @@
               >
                 Send
               </button>
-            </div> -->
-            <div class="col-12">
-              <a href="career.html">
-                <button
-                  id="submit"
-                  class="btn btn-primary w-100 py-2"
-                  type="submit"
-                >
-                  Apply now
-                </button>
-              </a>
             </div>
           </div>
         </div>
@@ -385,7 +494,14 @@
       </div>
     </div>
     <!-- Footer End -->
-
+    <div id="loader-overlay">
+      <div class="text-center">
+        <div class="spinner-border loader-spinner text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <p class="mt-2">Loading, please wait...</p>
+      </div>
+    </div>
     <!-- Back to Top -->
     <a
       href="#"
@@ -406,5 +522,32 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+    <script>
+      const form = document.querySelector("#form");
+      const submitButton = document.querySelector("#submit");
+      const requestBody = new FormData(form);
+      const scriptURL =
+        "https://script.google.com/macros/s/AKfycbymjNohjQ4w9HvWNhk1Fd4QrjADOP7FMSOXo_fHVe5tXGxUaaYcsiG6GED2jqzHrkgZ/exec";
+
+      document.getElementById("submit").addEventListener("click", function () {
+        form.addEventListener("submit", (e) => {
+          submitButton.disabled = true;
+          e.preventDefault();
+          document.getElementById("loader-overlay").style.display = "flex";
+          fetch(scriptURL, { method: "POST", body: requestBody })
+            .then((response) => {
+              alert("Your Message hasbeen submitted successfully!, Thank you!");
+              document.querySelector("#form").reset();
+              submitButton.disabled = false;
+              document.getElementById("loader-overlay").style.display = "none";
+            })
+            .catch((error) => {
+              alert("Some thing went wrong, Please try again!");
+              submitButton.disabled = false;
+              document.getElementById("loader-overlay").style.display = "none";
+            });
+        });
+      });
+    </script>
   </body>
 </html>
