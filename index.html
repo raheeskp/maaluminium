@@ -878,7 +878,7 @@
                       type="text"
                       class="form-control border-1"
                       placeholder="Your Name"
-                      name="Name"
+                      name="name"
                       style="height: 55px"
                       required
                     />
@@ -888,7 +888,7 @@
                       type="email"
                       class="form-control border-1"
                       placeholder="Your Email"
-                      name="Email"
+                      name="email"
                       style="height: 55px"
                     />
                   </div>
@@ -897,7 +897,7 @@
                       type="text"
                       class="form-control border-1"
                       placeholder="Your Mobile"
-                      name="Mobile"
+                      name="mobile"
                       style="height: 55px"
                       required
                     />
@@ -906,10 +906,10 @@
                     <select
                       class="form-select border-1"
                       style="height: 55px"
-                      name="Service"
+                      name="service"
                       required
                     >
-                      <option selected>Select A Service</option>
+                      <option selected value="">Select A Service</option>
                       <option value="Enquiry">Enquiry</option>
                       <option value="Complaints">Suggestions</option>
                       <option value="Suggestions">Complaints</option>
@@ -920,7 +920,7 @@
                       class="form-control border-1"
                       placeholder="Special Note"
                       required
-                      name="Message"
+                      name="message"
                     ></textarea>
                   </div>
                   <div class="col-12">
@@ -1292,22 +1292,42 @@
     <script src="lib/owlcarousel/owl.carousel.min.js"></script>
     <script src="lib/isotope/isotope.pkgd.min.js"></script>
     <script src="lib/lightbox/js/lightbox.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
     <script>
+      const supabaseUrl = "https://zfxmljfqznzjshfqpnxm.supabase.co";
+      const supabaseKey =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpmeG1samZxem56anNoZnFwbnhtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTkyNDEwNDgsImV4cCI6MjAzNDgxNzA0OH0.cHeXAq71OY9gXeWdF3X3KpuTIbAbNEA4WSrsBzzNO9g";
+      const client = supabase.createClient(supabaseUrl, supabaseKey, {
+        db: {
+          schema: "public",
+        },
+      });
+
+      (async () => {
+        const response = await client.from("job-enquiry").select("*");
+        console.log(response);
+      })();
+    </script>
+
+    <script>
       const form = document.querySelector("#form");
       const submitButton = document.querySelector("#submit");
-      const requestBody = new FormData(form);
+      const formData = new FormData(form);
+      const dataObject = Object.fromEntries(formData.entries());
+
       const scriptURL =
         "https://script.google.com/macros/s/AKfycbxq2cdQf21P3GvBlKYDRsNOk7IPkUdf41isb-iX-rYKiSqr0whWY0u9HqCIoeMZ0rl4/exec";
 
       document.getElementById("submit").addEventListener("click", function () {
+        console.log(dataObject);
         form.addEventListener("submit", (e) => {
           submitButton.disabled = true;
           e.preventDefault();
           document.getElementById("loader-overlay").style.display = "flex";
-          fetch(scriptURL, { method: "POST", body: requestBody })
+          fetch(scriptURL, { method: "POST", body: dataObject })
             .then((response) => {
               alert("Your Message hasbeen submitted successfully!, Thank you!");
               document.querySelector("#form").reset();

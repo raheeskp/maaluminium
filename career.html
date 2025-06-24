@@ -223,7 +223,7 @@
                       type="text"
                       class="form-control border-1"
                       placeholder="First Name"
-                      name="First Name"
+                      name="firstName"
                       required
                       style="height: 55px"
                     />
@@ -233,7 +233,7 @@
                       type="text"
                       class="form-control border-1"
                       placeholder="Last Name"
-                      name="Last Name"
+                      name="lastName"
                       required
                       style="height: 55px"
                     />
@@ -243,7 +243,7 @@
                       type="email"
                       class="form-control border-1"
                       placeholder="Email Id"
-                      name="Email"
+                      name="email"
                       style="height: 55px"
                     />
                   </div>
@@ -252,7 +252,7 @@
                       type="text"
                       class="form-control border-1"
                       placeholder="Mobile No"
-                      name="Mobile"
+                      name="mobile"
                       required
                       style="height: 55px"
                     />
@@ -262,7 +262,7 @@
                       type="date"
                       class="form-control border-1"
                       placeholder="Date of birth"
-                      name="Date of birth"
+                      name="birthDate"
                       required
                       style="height: 55px"
                     />
@@ -272,7 +272,7 @@
                       type="text"
                       class="form-control border-1"
                       placeholder="Place"
-                      name="Place"
+                      name="place"
                       required
                       style="height: 55px"
                     />
@@ -281,7 +281,7 @@
                     <select
                       class="form-select border-1"
                       style="height: 55px"
-                      name="District"
+                      name="district"
                       required
                       aria-placeholder="lxjgf"
                     >
@@ -309,7 +309,7 @@
                       type="text"
                       class="form-control border-1"
                       placeholder="PIN Code"
-                      name="Pin Code"
+                      name="pinCode"
                       required
                       style="height: 55px"
                     />
@@ -319,9 +319,10 @@
                       type="text"
                       class="form-control border-1"
                       placeholder="Kerala"
-                      name="Kerala"
+                      name="state"
                       disabled
                       style="height: 55px"
+                      value="Kerala"
                     />
                   </div>
 
@@ -330,16 +331,17 @@
                       type="text"
                       class="form-control border-1"
                       placeholder="India"
-                      name="India"
+                      name="country"
                       disabled
                       style="height: 55px"
+                      value="India"
                     />
                   </div>
                   <div class="col-12 col-sm-6">
                     <select
                       class="form-select border-1"
                       style="height: 55px"
-                      name="Service"
+                      name="education"
                       required
                     >
                       <option selected value="">Highest education</option>
@@ -355,7 +357,7 @@
                       type="text"
                       class="form-control border-1"
                       placeholder="Course description"
-                      name="Course description"
+                      name="course"
                       style="height: 55px"
                     />
                   </div>
@@ -363,7 +365,7 @@
                     <textarea
                       class="form-control border-1"
                       placeholder="Dou you have any previous experience?. if Yes, please specify"
-                      name="Experience"
+                      name="experience"
                     ></textarea>
                   </div>
                   <div class="col-12">
@@ -519,33 +521,48 @@
     <script src="lib/owlcarousel/owl.carousel.min.js"></script>
     <script src="lib/isotope/isotope.pkgd.min.js"></script>
     <script src="lib/lightbox/js/lightbox.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
     <script>
+      const supabaseUrl = "https://zfxmljfqznzjshfqpnxm.supabase.co";
+      const supabaseKey =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpmeG1samZxem56anNoZnFwbnhtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTkyNDEwNDgsImV4cCI6MjAzNDgxNzA0OH0.cHeXAq71OY9gXeWdF3X3KpuTIbAbNEA4WSrsBzzNO9g";
+      const client = supabase.createClient(supabaseUrl, supabaseKey, {
+        db: {
+          schema: "public",
+        },
+      });
       const form = document.querySelector("#form");
       const submitButton = document.querySelector("#submit");
-      const requestBody = new FormData(form);
-      const scriptURL =
-        "https://script.google.com/macros/s/AKfycbymjNohjQ4w9HvWNhk1Fd4QrjADOP7FMSOXo_fHVe5tXGxUaaYcsiG6GED2jqzHrkgZ/exec";
+      const formData = new FormData(form);
+      const dataObject = Object.fromEntries(formData.entries());
+      console.log(dataObject);
 
       document.getElementById("submit").addEventListener("click", function () {
         form.addEventListener("submit", (e) => {
           submitButton.disabled = true;
           e.preventDefault();
           document.getElementById("loader-overlay").style.display = "flex";
-          fetch(scriptURL, { method: "POST", body: requestBody })
-            .then((response) => {
-              alert("Your Message hasbeen submitted successfully!, Thank you!");
+
+          console.log(dataObject);
+
+          (async () => {
+            const { error } = await client
+              .from("job-enquiry")
+              .insert(dataObject);
+            if (!error) {
+              alert("Your application hasbeen submitted successfully!");
               document.querySelector("#form").reset();
               submitButton.disabled = false;
               document.getElementById("loader-overlay").style.display = "none";
-            })
-            .catch((error) => {
-              alert("Some thing went wrong, Please try again!");
+            } else {
+              alert(error.message + "Please try again!");
               submitButton.disabled = false;
               document.getElementById("loader-overlay").style.display = "none";
-            });
+            }
+          })();
         });
       });
     </script>
