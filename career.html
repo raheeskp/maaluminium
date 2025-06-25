@@ -345,11 +345,11 @@
                       required
                     >
                       <option selected value="">Highest education</option>
-                      <option value="Enquiry">Master Degree</option>
-                      <option value="Complaints">Degree</option>
-                      <option value="Complaints">Diploma</option>
-                      <option value="Suggestions">Plus two</option>
-                      <option value="Suggestions">SSLC</option>
+                      <option value="Master Degree">Master Degree</option>
+                      <option value="Degree">Degree</option>
+                      <option value="Diploma">Diploma</option>
+                      <option value="Plus two">Plus two</option>
+                      <option value="SSLC">SSLC</option>
                     </select>
                   </div>
                   <div class="col-12 col-sm-6">
@@ -526,6 +526,8 @@
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
     <script>
+      const formEl = document.querySelector("#form");
+      const submitButton = document.querySelector("#submit");
       const supabaseUrl = "https://zfxmljfqznzjshfqpnxm.supabase.co";
       const supabaseKey =
         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpmeG1samZxem56anNoZnFwbnhtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTkyNDEwNDgsImV4cCI6MjAzNDgxNzA0OH0.cHeXAq71OY9gXeWdF3X3KpuTIbAbNEA4WSrsBzzNO9g";
@@ -534,36 +536,43 @@
           schema: "public",
         },
       });
-      const form = document.querySelector("#form");
-      const submitButton = document.querySelector("#submit");
-      const formData = new FormData(form);
-      const dataObject = Object.fromEntries(formData.entries());
-      console.log(dataObject);
 
-      document.getElementById("submit").addEventListener("click", function () {
-        form.addEventListener("submit", (e) => {
-          submitButton.disabled = true;
-          e.preventDefault();
-          document.getElementById("loader-overlay").style.display = "flex";
-
-          console.log(dataObject);
-
-          (async () => {
-            const { error } = await client
-              .from("job-enquiry")
-              .insert(dataObject);
-            if (!error) {
-              alert("Your application hasbeen submitted successfully!");
-              document.querySelector("#form").reset();
-              submitButton.disabled = false;
-              document.getElementById("loader-overlay").style.display = "none";
-            } else {
-              alert(error.message + "Please try again!");
-              submitButton.disabled = false;
-              document.getElementById("loader-overlay").style.display = "none";
-            }
-          })();
+      function formatDate(date) {
+        return date.toLocaleString("en-GB", {
+          day: "2-digit",
+          month: "2-digit",
+          year: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+          hour12: true,
         });
+      }
+
+      const date = new Date(); // Note: months are 0-indexed
+
+      formEl.addEventListener("submit", (e) => {
+        e.preventDefault();
+        submitButton.disabled = true;
+        document.getElementById("loader-overlay").style.display = "flex";
+        const formData = new FormData(formEl);
+        const date = new Date();
+        formData.append("created_at", formatDate(date));
+        const data = Object.fromEntries(formData.entries());
+
+        (async () => {
+          const { error } = await client.from("job-application").insert(data);
+          if (!error) {
+            alert("Your application hasbeen submitted successfully!");
+            document.querySelector("#form").reset();
+            submitButton.disabled = false;
+            document.getElementById("loader-overlay").style.display = "none";
+          } else {
+            alert(error.message + "Please try again!");
+            submitButton.disabled = false;
+            document.getElementById("loader-overlay").style.display = "none";
+          }
+        })();
       });
     </script>
   </body>

@@ -871,7 +871,7 @@
                 within minutes and also we can suggest & assist you early as
                 possible.
               </p>
-              <form id="form" method="post">
+              <form id="form">
                 <div class="row g-3">
                   <div class="col-12 col-sm-6">
                     <input
@@ -1297,6 +1297,8 @@
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
     <script>
+      const formEl = document.querySelector("#form");
+      const submitButton = document.querySelector("#submit");
       const supabaseUrl = "https://zfxmljfqznzjshfqpnxm.supabase.co";
       const supabaseKey =
         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpmeG1samZxem56anNoZnFwbnhtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTkyNDEwNDgsImV4cCI6MjAzNDgxNzA0OH0.cHeXAq71OY9gXeWdF3X3KpuTIbAbNEA4WSrsBzzNO9g";
@@ -1306,40 +1308,44 @@
         },
       });
 
-      (async () => {
-        const response = await client.from("job-enquiry").select("*");
-        console.log(response);
-      })();
-    </script>
-
-    <script>
-      const form = document.querySelector("#form");
-      const submitButton = document.querySelector("#submit");
-      const formData = new FormData(form);
-      const dataObject = Object.fromEntries(formData.entries());
-
-      const scriptURL =
-        "https://script.google.com/macros/s/AKfycbxq2cdQf21P3GvBlKYDRsNOk7IPkUdf41isb-iX-rYKiSqr0whWY0u9HqCIoeMZ0rl4/exec";
-
-      document.getElementById("submit").addEventListener("click", function () {
-        console.log(dataObject);
-        form.addEventListener("submit", (e) => {
-          submitButton.disabled = true;
-          e.preventDefault();
-          document.getElementById("loader-overlay").style.display = "flex";
-          fetch(scriptURL, { method: "POST", body: dataObject })
-            .then((response) => {
-              alert("Your Message hasbeen submitted successfully!, Thank you!");
-              document.querySelector("#form").reset();
-              submitButton.disabled = false;
-              document.getElementById("loader-overlay").style.display = "none";
-            })
-            .catch((error) => {
-              alert("Some thing went wrong, Please try again!");
-              submitButton.disabled = false;
-              document.getElementById("loader-overlay").style.display = "none";
-            });
+      function formatDate(date) {
+        return date.toLocaleString("en-GB", {
+          day: "2-digit",
+          month: "2-digit",
+          year: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+          hour12: true,
         });
+      }
+
+      const date = new Date(); // Note: months are 0-indexed
+
+      formEl.addEventListener("submit", (e) => {
+        e.preventDefault();
+        submitButton.disabled = true;
+        document.getElementById("loader-overlay").style.display = "flex";
+        const formData = new FormData(formEl);
+        const date = new Date();
+        formData.append("created_at", formatDate(date));
+        const data = Object.fromEntries(formData.entries());
+
+        (async () => {
+          const { error } = await client.from("customer-enquiry").insert(data);
+          if (error) {
+            document.getElementById("loader-overlay").style.display = "none";
+            submitButton.disabled = false;
+            alert(error.message + "Please try again.!");
+          } else {
+            document.getElementById("loader-overlay").style.display = "none";
+            submitButton.disabled = false;
+            document.querySelector("#form").reset();
+            alert(
+              "Thank you for contacting MA ALUMINIUM, we will contact you shortly.!"
+            );
+          }
+        })();
       });
 
       function toggleButtons() {
