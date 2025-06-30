@@ -180,7 +180,7 @@
     <div class="container-fluid page-header py-5 mb-5">
       <div class="container py-5">
         <h1 class="display-3 text-white mb-3 animated slideInDown">
-          Apply Now
+          Get Hired
         </h1>
         <nav aria-label="breadcrumb animated slideInDown">
           <ol class="breadcrumb">
@@ -188,7 +188,7 @@
               <a class="text-white" href="index.html">Home</a>
             </li>
             <li class="breadcrumb-item">
-              <a class="text-white" href="#">Go-To</a>
+              <a class="text-white">Go-To</a>
             </li>
             <li class="breadcrumb-item text-white active" aria-current="page">
               Career
@@ -203,20 +203,30 @@
     <div class="container-fluid bg-light overflow-hidden my-5 px-lg-0">
       <div class="container quote px-lg-0">
         <div class="row g-0 mx-lg-0">
+          <div class="col-lg-6 ps-lg-0" style="min-height: 400px">
+            <div class="position-relative h-100">
+              <img
+                class="position-absolute img-fluid w-100 h-100"
+                src="img/career.jpg"
+                style="object-fit: cover"
+                alt=""
+              />
+            </div>
+          </div>
           <div
             class="col-lg-6 quote-text py-5 wow fadeIn"
             data-wow-delay="0.5s"
           >
             <div class="p-lg-5 pe-lg-0">
               <div class="section-title text-start">
-                <h1 class="display-5 mb-4">Get Hired</h1>
+                <h1 class="display-5 mb-4">Apply Now</h1>
               </div>
               <p class="mb-4 pb-2">
                 Send us your latest credentials by filling the following
                 application and get hired with best packages, we will contact
-                you later.
+                you shortly.
               </p>
-              <form id="form" method="post">
+              <form id="form">
                 <div class="row g-3">
                   <div class="col-12 col-sm-6">
                     <input
@@ -381,16 +391,6 @@
               </form>
             </div>
           </div>
-          <div class="col-lg-6 ps-lg-0" style="min-height: 400px">
-            <div class="position-relative h-100">
-              <img
-                class="position-absolute img-fluid w-100 h-100"
-                src="img/career.jpg"
-                style="object-fit: cover"
-                alt=""
-              />
-            </div>
-          </div>
         </div>
       </div>
     </div>
@@ -525,31 +525,12 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+    <script src="js/script.js"></script>
     <script>
       const formEl = document.querySelector("#form");
       const submitButton = document.querySelector("#submit");
-      const supabaseUrl = "https://zfxmljfqznzjshfqpnxm.supabase.co";
-      const supabaseKey =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpmeG1samZxem56anNoZnFwbnhtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTkyNDEwNDgsImV4cCI6MjAzNDgxNzA0OH0.cHeXAq71OY9gXeWdF3X3KpuTIbAbNEA4WSrsBzzNO9g";
-      const client = supabase.createClient(supabaseUrl, supabaseKey, {
-        db: {
-          schema: "public",
-        },
-      });
 
-      function formatDate(date) {
-        return date.toLocaleString("en-GB", {
-          day: "2-digit",
-          month: "2-digit",
-          year: "numeric",
-          hour: "2-digit",
-          minute: "2-digit",
-          second: "2-digit",
-          hour12: true,
-        });
-      }
-
-      const date = new Date(); // Note: months are 0-indexed
+      const client = connectSupabase(supabase);
 
       formEl.addEventListener("submit", (e) => {
         e.preventDefault();
@@ -557,7 +538,7 @@
         document.getElementById("loader-overlay").style.display = "flex";
         const formData = new FormData(formEl);
         const date = new Date();
-        formData.append("created_at", formatDate(date));
+        formData.append("created_at", formatDate());
         const data = Object.fromEntries(formData.entries());
 
         (async () => {
