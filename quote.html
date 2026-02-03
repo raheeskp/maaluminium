@@ -175,7 +175,7 @@
     <div class="container-fluid page-header py-5 mb-5">
       <div class="container py-5">
         <h1 class="display-3 text-white mb-3 animated slideInDown">
-          Free Quote
+          ഉറപ്പായ സമ്മാനം നേടൂ !
         </h1>
         <nav aria-label="breadcrumb animated slideInDown">
           <ol class="breadcrumb">
@@ -198,28 +198,23 @@
     <div class="container-fluid bg-light overflow-hidden my-5 px-lg-0">
       <div class="container quote px-lg-0">
         <div class="row g-0 mx-lg-0">
-          <div class="col-lg-6 ps-lg-0" style="min-height: 400px">
-            <div class="position-relative h-100">
-              <img
-                class="position-absolute img-fluid w-100 h-100"
-                src="img/quote.jpg"
-                style="object-fit: cover"
-                alt=""
-              />
-            </div>
-          </div>
           <div
             class="col-lg-6 quote-text py-5 wow fadeIn"
             data-wow-delay="0.5s"
           >
             <div class="p-lg-5 pe-lg-0">
               <div class="section-title text-start">
-                <h1 class="display-5 mb-4">Free Quote</h1>
+                <h1 class="display-5 mb-4">
+                  എം എ അലൂമിനിയം ഫാബ്രിക്കേറ്റർസ് ഗ്രോത്ത് പ്രോഗ്രാമ്മിലേക്ക്
+                  സ്വാഗതം
+                </h1>
               </div>
               <p class="mb-4 pb-2">
-                Send us in few words, your wants and needs we can reach you
-                within minutes and also we can suggest & assist you early as
-                possible.
+                ഞങ്ങളുടെ പുതിയ ബ്രാഞ്ചായ എം. എ. അലൂമിനിയം എസ്റ്റേറ്റ് മുക്കിന്റെ
+                ഉദ്ഘാടനം 2026 ഫെബ്രുവരി 9 തിങ്കളാഴ്ച നടക്കുകയാണ് അതിന്റെ ഭാഗമായി
+                ഫാബ്രിക്കേറ്റഴ്സിന് ഉറപ്പായ സമ്മാനം നേടാൻ അവസരം
+                ഒരുക്കിയിരിക്കുന്നു, അതിനായി താങ്കൾ ചെയ്യേണ്ടത് താഴെ കാണുന്ന ഫോം
+                ഫിൽ ചെയ്ത് സബ്മിറ്റ് ബട്ടൺ അമർത്തുക.
               </p>
               <form id="form">
                 <div class="row g-3">
@@ -227,7 +222,7 @@
                     <input
                       type="text"
                       class="form-control border-1"
-                      placeholder="Your Name"
+                      placeholder="Name"
                       name="name"
                       required
                       style="height: 55px"
@@ -235,10 +230,10 @@
                   </div>
                   <div class="col-12 col-sm-6">
                     <input
-                      type="email"
+                      type="text"
                       class="form-control border-1"
-                      placeholder="Your Email"
-                      name="email"
+                      placeholder="Mobile No."
+                      name="mobile"
                       style="height: 55px"
                     />
                   </div>
@@ -246,8 +241,18 @@
                     <input
                       type="text"
                       class="form-control border-1"
-                      placeholder="Your Mobile"
-                      name="mobile"
+                      placeholder="Place"
+                      name="place"
+                      required
+                      style="height: 55px"
+                    />
+                  </div>
+                  <div class="col-12 col-sm-6">
+                    <input
+                      type="text"
+                      class="form-control border-1"
+                      placeholder="Shop Name & Place"
+                      name="shop"
                       required
                       style="height: 55px"
                     />
@@ -256,23 +261,24 @@
                     <select
                       class="form-select border-1"
                       style="height: 55px"
-                      name="service"
+                      name="proffession"
                       required
                     >
-                      <option selected value="">Select A Service</option>
-                      <option value="Enquiry">Enquiry</option>
-                      <option value="Complaints">Suggestions</option>
-                      <option value="Suggestions">Complaints</option>
+                      <option selected value="">Select Your Proffession</option>
+                      <option value="Enquiry">Fabricator</option>
+                      <option value="Complaints">Engineer</option>
+                      <option value="Suggestions">Carpenter</option>
+                      <option value="Others">Others</option>
                     </select>
                   </div>
-                  <div class="col-12">
+                  <!-- <div class="col-12">
                     <textarea
                       class="form-control border-1"
                       placeholder="Special Note"
                       name="message"
                       required
                     ></textarea>
-                  </div>
+                  </div> -->
                   <div class="col-12">
                     <button
                       id="submit"
@@ -284,6 +290,16 @@
                   </div>
                 </div>
               </form>
+            </div>
+          </div>
+          <div class="col-lg-6 ps-lg-0" style="min-height: 400px">
+            <div class="position-relative h-100">
+              <img
+                class="position-absolute img-fluid w-100 h-100"
+                src="img/quote.jpg"
+                style="object-fit: cover"
+                alt=""
+              />
             </div>
           </div>
         </div>
@@ -439,7 +455,7 @@
       const formEl = document.querySelector("#form");
       const submitButton = document.querySelector("#submit");
 
-      const client = supabaseConnect(supabase);
+      const client = connectSupabase(supabase);
 
       formEl.addEventListener("submit", (e) => {
         e.preventDefault();
@@ -447,30 +463,27 @@
         document.getElementById("loader-overlay").style.display = "flex";
         const formData = new FormData(formEl);
         const date = new Date();
-        formData.append("created_at", formatDate(date));
+        formData.append("created_at", formatDate());
         const data = Object.fromEntries(formData.entries());
 
         (async () => {
-          const { error } = await client.from("customer-enquiry").insert(data);
-          if (error) {
-            document.getElementById("loader-overlay").style.display = "none";
-            submitButton.disabled = false;
-            alert(error.message + "Please try again.!");
-          } else {
-            document.getElementById("loader-overlay").style.display = "none";
-            submitButton.disabled = false;
-            document.querySelector("#form").reset();
+          const { error } = await client.from("customer-gift").insert(data);
+          if (!error) {
             alert(
-              "Thank you for contacting MA ALUMINIUM, we will contact you shortly.!"
+              "Thank you for participating MA ALUMINIUM Fabricators Growth Programme, We will contact you shortly.!"
             );
+            document.querySelector("#form").reset();
+            submitButton.disabled = false;
+            document.getElementById("loader-overlay").style.display = "none";
+          } else {
+            alert(
+              "Something went wrong, Please check the data you entered and try again!"
+            );
+            submitButton.disabled = false;
+            document.getElementById("loader-overlay").style.display = "none";
           }
         })();
       });
-
-      function toggleButtons() {
-        const fabButtons = document.getElementById("fabButtons");
-        fabButtons.classList.toggle("show");
-      }
     </script>
   </body>
 </html>
