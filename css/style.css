@@ -5,6 +5,14 @@
   --dark: #353535;
 }
 
+.text-main {
+  color: #8a4101;
+}
+
+.bg-main {
+  background-color: #8a4101;
+}
+
 .fw-medium {
   font-weight: 500 !important;
 }
