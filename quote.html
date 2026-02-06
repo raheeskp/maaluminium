@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -282,7 +282,7 @@
                   <div class="col-12">
                     <button
                       id="submit"
-                      class="btn btn-primary w-100 py-3"
+                      class="bg-main text-white w-100 py-3"
                       type="submit"
                     >
                       Submit
@@ -470,7 +470,7 @@
           const { error } = await client.from("customer-gift").insert(data);
           if (!error) {
             alert(
-              "Thank you for participating MA ALUMINIUM Fabricators Growth Programme, We will contact you shortly.!"
+              "Thank you for participating MA ALUMINIUM Fabricators Growth Programme, We will contact you shortly.!",
             );
             document.querySelector("#form").reset();
             submitButton.disabled = false;
@@ -478,7 +478,7 @@
             window.location.replace("/");
           } else {
             alert(
-              "Something went wrong, Please check the data you entered and try again!"
+              "Something went wrong, Please check the data you entered and try again!",
             );
             submitButton.disabled = false;
             document.getElementById("loader-overlay").style.display = "none";
