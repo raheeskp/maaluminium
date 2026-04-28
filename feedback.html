@@ -205,12 +205,12 @@
           >
             <div class="p-lg-5 pe-lg-0">
               <div class="section-title text-start">
-                <h1 class="display-5 mb-4">
-                  We value your feedback!
-                </h1>
+                <h1 class="display-5 mb-4">We value your feedback!</h1>
               </div>
               <p class="mb-4 pb-2">
-                We would love to hear your thoughts, concerns or problems so we can improve! Please fill out the form below to share your experience with MA Aluminium.
+                We would love to hear your thoughts, concerns or problems so we
+                can improve! Please fill out the form below to share your
+                experience with MA Aluminium.
               </p>
               <form id="form">
                 <div class="row g-3">
@@ -433,13 +433,11 @@
         (async () => {
           const { error } = await client.from("customer-feedback").insert(data);
           if (!error) {
-            alert(
-              "Thank you for your valuable feedback!",
-            );
+            alert("Thank you for your valuable feedback!");
             document.querySelector("#form").reset();
             submitButton.disabled = false;
             document.getElementById("loader-overlay").style.display = "none";
-            // window.location.replace("/");
+            window.location.replace("/");
           } else {
             alert(
               "Something went wrong, Please check the data you entered and try again!",
