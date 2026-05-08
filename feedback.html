@@ -210,7 +210,11 @@
               <p class="mb-4 pb-2">
                 We would love to hear your thoughts, concerns or problems so we
                 can improve! Please fill out the form below to share your
-                experience with MA Aluminium.
+                experience with MA Aluminium. <br />നിങ്ങളുടെ ചിന്തകൾ, ആശങ്കകൾ
+                അല്ലെങ്കിൽ പ്രശ്നങ്ങൾ കേൾക്കാൻ ഞങ്ങൾ ആഗ്രഹിക്കുന്നു, അതുവഴി
+                ഞങ്ങൾക്ക് മെച്ചപ്പെടുത്താൻ കഴിയും! എംഎ അലൂമിനിയവുമായുള്ള
+                നിങ്ങളുടെ അനുഭവം പങ്കിടുന്നതിന് താഴെയുള്ള ഫോം പൂരിപ്പിക്കുക.
+                (വ്യക്തിഗത വിവരങ്ങൾ നിർബന്ധമല്ല.)
               </p>
               <form id="form">
                 <div class="row g-3">
@@ -218,9 +222,8 @@
                     <input
                       type="text"
                       class="form-control border-1"
-                      placeholder="Name"
+                      placeholder="Name (Optional)"
                       name="name"
-                      required
                       style="height: 55px"
                     />
                   </div>
@@ -228,9 +231,8 @@
                     <input
                       type="text"
                       class="form-control border-1"
-                      placeholder="Mobile No."
+                      placeholder="Mobile No (Optional)."
                       name="mobile"
-                      required
                       style="height: 55px"
                     />
                   </div>
@@ -251,6 +253,7 @@
                       required
                     >
                       <option selected value="">Rate our service</option>
+                      <option value="Awesome">Awesome</option>
                       <option value="Excellent">Excellent</option>
                       <option value="Good">Good</option>
                       <option value="Average">Average</option>
@@ -260,7 +263,7 @@
                   <div class="col-12">
                     <textarea
                       class="form-control border-1"
-                      placeholder="Your Feedback"
+                      placeholder="Your Feedback (അഭിപ്രയം ഇവിടെ രേഖപെടുത്തുക)"
                       name="message"
                       required
                       style="min-height: 100px"
@@ -433,7 +436,7 @@
         (async () => {
           const { error } = await client.from("customer-feedback").insert(data);
           if (!error) {
-            alert("Thank you for your valuable feedback!");
+            alert("താങ്കളുടെ വിലയേറിയ അഭിപ്രായം രേഖപ്പെടുത്തിയതിനു നന്ദി!");
             document.querySelector("#form").reset();
             submitButton.disabled = false;
             document.getElementById("loader-overlay").style.display = "none";
