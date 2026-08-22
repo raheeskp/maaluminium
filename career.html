@@ -288,7 +288,7 @@
                       type="text"
                       class="form-control border-1"
                       placeholder="Name of father"
-                      name="mobile"
+                      name="fatherName"
                       required
                       style="height: 55px"
                     />
@@ -567,10 +567,11 @@
         (async () => {
           const { error } = await client.from("job-application").insert(data);
           if (!error) {
-            alert("Your application hasbeen submitted successfully!");
+            alert("Your application has been submitted successfully!");
             document.querySelector("#form").reset();
             submitButton.disabled = false;
             document.getElementById("loader-overlay").style.display = "none";
+            window.location.href = "index.html";
           } else {
             alert(error.message + "Please try again!");
             submitButton.disabled = false;
