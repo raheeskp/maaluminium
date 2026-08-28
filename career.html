@@ -630,8 +630,20 @@
 
         const fileInput = document.getElementById("imageInput");
         const file = fileInput ? fileInput.files[0] : null;
+
         if (!file) {
           alert("Please select an image file to upload!");
+          return;
+        }
+
+        if (file.size > 150 * 1024) {
+          alert("Image size should be less than 150kb!");
+          return;
+        }
+
+        const allowedTypes = ["image/jpeg", "image/png", "image/jpg"];
+        if (!allowedTypes.includes(file.type)) {
+          alert("Please upload a valid image file!");
           return;
         }
 
