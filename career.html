@@ -251,6 +251,28 @@
                     />
                   </div>
                   <div class="col-12 col-sm-6">
+                    <label for="">Gender</label>
+                    <!-- <select
+                      class="form-control border-1"
+                      name="gender"
+                      required
+                      style="height: 55px"
+                    >
+                      <option value="">Select Gender</option>
+                      <option value="Male">Male</option>
+                      <option value="Female">Female</option>
+                    </select> -->
+
+                    <input
+                      type="text"
+                      class="form-control border-1"
+                      placeholder="Gender"
+                      name="gender"
+                      required
+                      style="height: 55px"
+                    />
+                  </div>
+                  <div class="col-12 col-sm-6">
                     <label for="">Email</label>
                     <input
                       type="email"
@@ -349,7 +371,6 @@
                       type="text"
                       class="form-control border-1"
                       placeholder="Kerala"
-                      name="state"
                       disabled
                       style="height: 55px"
                       value="Kerala"
@@ -361,7 +382,6 @@
                       type="text"
                       class="form-control border-1"
                       placeholder="India"
-                      name="country"
                       disabled
                       style="height: 55px"
                       value="India"
@@ -400,6 +420,38 @@
                       placeholder="Dou you have any previous experience?. if Yes, please specify"
                       name="experience"
                     ></textarea>
+                  </div>
+                  <div class="col-12">
+                    <img
+                      id="imagePreview"
+                      src="#"
+                      alt="Image"
+                      style="
+                        width: 150px;
+                        height: 200px;
+                        display: none;
+                        border-radius: 10px;
+                        object-fit: cover;
+                        border: 1px solid #963802;
+                      "
+                    />
+                  </div>
+                  <div class="col-12">
+                    <label for=""
+                      >Upload Passport size Image (jpg,jpeg,png not exceed
+                      150kb)</label
+                    >
+                    <input
+                      type="file"
+                      id="imageInput"
+                      class="form-control border-1"
+                      accept="image/*"
+                      placeholder="File"
+                      name="image"
+                      style="height: 55px"
+                      onchange="previewImage()"
+                      required
+                    />
                   </div>
                   <div class="col-12">
                     <button
@@ -550,34 +602,87 @@
     <script src="js/main.js"></script>
     <script src="js/script.js"></script>
     <script>
+      function previewImage(event) {
+        const fileInput = document.getElementById("imageInput");
+        const file = fileInput.files[0];
+        const preview = document.getElementById("imagePreview");
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            preview.src = e.target.result;
+            preview.style.display = "block";
+          };
+          reader.readAsDataURL(file);
+        }
+      }
+    </script>
+    <script>
       const formEl = document.querySelector("#form");
       const submitButton = document.querySelector("#submit");
 
-      const client = connectSupabase(supabase);
-
-      formEl.addEventListener("submit", (e) => {
+      formEl.addEventListener("submit", async (e) => {
         e.preventDefault();
+
+        // Trigger browser default HTML5 validation checks
+        if (!formEl.reportValidity()) {
+          return;
+        }
+
+        const fileInput = document.getElementById("imageInput");
+        const file = fileInput ? fileInput.files[0] : null;
+        if (!file) {
+          alert("Please select an image file to upload!");
+          return;
+        }
+
+        const path = `${Date.now()}_${file.name}`;
+        const formData = new FormData(formEl);
+        formData.append("created_at", formatDate());
+
+        const data = Object.fromEntries(formData.entries());
+        data.image = path;
+
+        const client = connectSupabase(supabase);
+
         submitButton.disabled = true;
         document.getElementById("loader-overlay").style.display = "flex";
-        const formData = new FormData(formEl);
-        const date = new Date();
-        formData.append("created_at", formatDate());
-        const data = Object.fromEntries(formData.entries());
 
-        (async () => {
-          const { error } = await client.from("job-application").insert(data);
-          if (!error) {
-            alert("Your application has been submitted successfully!");
-            document.querySelector("#form").reset();
+        try {
+          // 1. Upload image to Supabase storage bucket 'career'
+          const { data: storageData, error: storageError } =
+            await client.storage.from("career").upload(path, file);
+
+          if (storageError) {
+            alert("Failed to upload Image: " + storageError.message);
             submitButton.disabled = false;
             document.getElementById("loader-overlay").style.display = "none";
-            window.location.href = "index.html";
-          } else {
-            alert(error.message + "Please try again!");
-            submitButton.disabled = false;
-            document.getElementById("loader-overlay").style.display = "none";
+            return;
           }
-        })();
+
+          // 2. Save form data to database table 'job-application'
+          const { data: dbData, error: dbError } = await client
+            .from("job-application")
+            .insert([data]);
+
+          if (dbError) {
+            alert(dbError.message + " Please try again!");
+            submitButton.disabled = false;
+            document.getElementById("loader-overlay").style.display = "none";
+            return;
+          }
+
+          alert("Your application has been submitted successfully!");
+          formEl.reset();
+          const preview = document.getElementById("imagePreview");
+          if (preview) preview.style.display = "none";
+          submitButton.disabled = false;
+          document.getElementById("loader-overlay").style.display = "none";
+          window.location.href = "index.html";
+        } catch (err) {
+          alert("An error occurred: " + err.message);
+          submitButton.disabled = false;
+          document.getElementById("loader-overlay").style.display = "none";
+        }
       });
     </script>
   </body>
