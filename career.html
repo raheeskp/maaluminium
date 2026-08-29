@@ -229,51 +229,47 @@
               <form id="form">
                 <div class="row g-3">
                   <div class="col-12 col-sm-6">
-                    <label for="">First Name</label>
+                    <label for="">Enter first name</label>
                     <input
                       type="text"
                       class="form-control border-1"
                       placeholder="First Name"
                       name="firstName"
                       required
-                      style="height: 55px"
+                      style="height: 55px; text-transform: uppercase"
+                      autocapitalize="characters"
                     />
                   </div>
                   <div class="col-12 col-sm-6">
-                    <label for="">Last Name</label>
+                    <label for="">Enter last name</label>
                     <input
                       type="text"
                       class="form-control border-1"
                       placeholder="Last Name"
                       name="lastName"
                       required
-                      style="height: 55px"
+                      style="height: 55px; text-transform: uppercase"
                     />
                   </div>
                   <div class="col-12 col-sm-6">
-                    <label for="">Gender</label>
-                    <!-- <select
-                      class="form-control border-1"
-                      name="gender"
-                      required
-                      style="height: 55px"
-                    >
-                      <option value="">Select Gender</option>
-                      <option value="Male">Male</option>
-                      <option value="Female">Female</option>
-                    </select> -->
-
+                    <p>Select Gender</p>
                     <input
-                      type="text"
-                      class="form-control border-1"
-                      placeholder="Gender"
-                      name="gender"
-                      required
-                      style="height: 55px"
+                      type="radio"
+                      id="html"
+                      name="fav_language"
+                      value="Male"
                     />
+                    <label for="">Male</label>
+                    <input
+                      type="radio"
+                      id="html"
+                      name="fav_language"
+                      value="Female"
+                    />
+                    <label for="">Female</label>
                   </div>
                   <div class="col-12 col-sm-6">
-                    <label for="">Email</label>
+                    <label for="">Enter Email</label>
                     <input
                       type="email"
                       class="form-control border-1"
@@ -312,7 +308,7 @@
                       placeholder="Name of father"
                       name="fatherName"
                       required
-                      style="height: 55px"
+                      style="height: 55px; text-transform: uppercase"
                     />
                   </div>
                   <div class="col-12 col-sm-6">
